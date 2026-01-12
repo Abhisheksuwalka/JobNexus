@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="job-nexus-two.vercel.app">🌐 Live Demo</a> •
+  <a href="https://job-nexus-two.vercel.app">🌐 Live Demo</a> •
   <a href="#screenshots">📸 Screenshots</a> •
   <a href="#features">✨ Features</a> •
   <a href="#tech-stack">🛠 Tech Stack</a>
