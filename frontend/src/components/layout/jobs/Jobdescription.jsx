@@ -1,4 +1,4 @@
-import { setSingleJob } from "@/redux/jobSlice";
+import { setSingleJob } from "@/redux/jobslice";
 import axios from "axios";
 import { motion } from "framer-motion";
 import {

@@ -1,20 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import authSlice from "./authSlice";
-import jobSlice from "./jobSlice";
-import companySlice from "./companySlice";
-import applicationSlice from "./applicationSlice";
+import applicationSlice from "./applicationslice";
+import authSlice from "./authslice";
+import companySlice from "./companyslice";
+import jobSlice from "./jobslice";
 
 import {
-
-    persistReducer,
     FLUSH,
-    REHYDRATE,
     PAUSE,
     PERSIST,
+    persistReducer,
     PURGE,
     REGISTER,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+    REHYDRATE,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 
 const persistConfig = {

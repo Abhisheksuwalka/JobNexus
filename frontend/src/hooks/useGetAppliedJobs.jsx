@@ -1,8 +1,8 @@
-import { setAllAppliedJobs } from "@/redux/jobSlice";
-import { APPLICATION_API_END_POINT } from "../utils/constant";   
-import axios from "axios"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { setAllAppliedJobs } from "@/redux/jobslice";
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { APPLICATION_API_END_POINT } from "../utils/constant";
 
 const useGetAppliedJobs = () => {
     const dispatch = useDispatch();

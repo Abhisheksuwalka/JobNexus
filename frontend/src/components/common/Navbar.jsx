@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { setUser } from "@/redux/authSlice";
+import { setUser } from "@/redux/authslice";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import axios from "axios";
 import { Briefcase, Building2, Home, LayoutDashboard, LogOut, Menu, Search, User2, X } from "lucide-react";

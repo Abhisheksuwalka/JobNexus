@@ -1,21 +1,21 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "../../ui/dialog";
-import { Label } from "../../ui/label";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
-import { setUser } from "@/redux/authSlice";
+import { setUser } from "@/redux/authslice";
 import axios from "axios";
-import { USER_API_END_POINT } from "../../../utils/constant";
-import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import { USER_API_END_POINT } from "../../../utils/constant";
+import { Button } from "../../ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "../../ui/dialog";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
 
 const UpdateProfile = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);

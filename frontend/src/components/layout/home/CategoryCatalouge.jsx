@@ -1,4 +1,4 @@
-import { setSearchedQuery } from "@/redux/jobSlice";
+import { setSearchedQuery } from "@/redux/jobslice";
 import { motion } from "framer-motion";
 import {
     BarChart3,
