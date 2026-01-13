@@ -1,50 +1,51 @@
 /* eslint-disable no-unused-vars */
-import { React, useEffect } from "react";
-import Navbar from "../common/Navbar";
-import Herosection from "../layout/home/Herosection";
-import CategoryCatalouge from "../layout/home/CategoryCatalouge";
-import Latestjobs from "../layout/home/Latestjobs";
-import Footer from "../common/Footer";
-import useGetAllJobs from "../../hooks/usegetalljobs";
 import { setSearchedQuery } from "@/redux/jobslice";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import useGetAllJobs from "../../hooks/useGetAllJobs";
+import Footer from "../common/Footer";
+import Navbar from "../common/Navbar";
+import CategoryCatalouge from "../layout/home/CategoryCatalouge";
+import Herosection from "../layout/home/Herosection";
+import Latestjobs from "../layout/home/Latestjobs";
 
-import { useSelector } from "react-redux";
-import RecentJobsPosted from "../layout/home/RecentJobsPosted";
+import { useDispatch, useSelector } from "react-redux";
 import CompanyCatalouge from "../layout/home/CompanyCatalouge";
+import RecentJobsPosted from "../layout/home/RecentJobsPosted";
 
+// Mock data for frontend testing - remove when connecting to real backend
+import useMockData from "../../hooks/useMockData";
 
 function Homepage() {
   useGetAllJobs();
+  useMockData(); // Load 250 mock jobs for testing
 
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
     return () => {
       dispatch(setSearchedQuery(""));
     };
   }, [dispatch]);
 
-  const { user } = useSelector((state) => state.auth);
-
   return (
     <>
       <Navbar />
-      <Herosection></Herosection>
+      <Herosection />
 
       {user && user.role === "recruiter" ? (
         <>
-         <CompanyCatalouge></CompanyCatalouge>
-          <RecentJobsPosted></RecentJobsPosted>
+          <CompanyCatalouge />
+          <RecentJobsPosted />
         </>
       ) : (
         <>
-       
-          <CategoryCatalouge></CategoryCatalouge>
-          <Latestjobs></Latestjobs>
+          <CategoryCatalouge />
+          <Latestjobs />
         </>
       )}
 
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
