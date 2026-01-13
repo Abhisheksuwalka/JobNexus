@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../common/Navbar";
 import AppliedJobTable from "../layout/profile/Appliedjobs";
 import Updateprofile from "../layout/profile/Updateprofile";
-import { Avatar, AvatarImage } from "../ui/Avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
