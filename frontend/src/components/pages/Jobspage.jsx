@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, Search, SlidersHorizontal, X } from "lucide-react";
+import { Briefcase, ChevronLeft, ChevronRight, Search, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../common/Navbar";
@@ -8,27 +8,40 @@ import Job from "../layout/jobs/Jobcard";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
+const JOBS_PER_PAGE = 20;
+
 const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState(allJobs);
   const [localSearch, setLocalSearch] = useState("");
   const [showMobileFilter, setShowMobileFilter] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const query = searchedQuery || localSearch;
     if (query) {
       const filteredJobs = allJobs.filter((job) => {
         return (
-          job.title.toLowerCase().includes(query.toLowerCase()) ||
-          job.description.toLowerCase().includes(query.toLowerCase()) ||
-          job.location.toLowerCase().includes(query.toLowerCase())
+          job.title?.toLowerCase().includes(query.toLowerCase()) ||
+          job.description?.toLowerCase().includes(query.toLowerCase()) ||
+          job.location?.toLowerCase().includes(query.toLowerCase()) ||
+          job.company?.name?.toLowerCase().includes(query.toLowerCase()) ||
+          job.skills?.some(skill => skill.toLowerCase().includes(query.toLowerCase()))
         );
       });
       setFilterJobs(filteredJobs);
     } else {
       setFilterJobs(allJobs);
     }
+    setCurrentPage(1); // Reset to page 1 when filters change
   }, [allJobs, searchedQuery, localSearch]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filterJobs.length / JOBS_PER_PAGE);
+  const paginatedJobs = filterJobs.slice(
+    (currentPage - 1) * JOBS_PER_PAGE,
+    currentPage * JOBS_PER_PAGE
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -144,18 +157,80 @@ const Jobs = () => {
                 )}
               </motion.div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {filterJobs.map((job, index) => (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    key={job?._id}
-                  >
-                    <Job job={job} />
-                  </motion.div>
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {paginatedJobs.map((job, index) => (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: Math.min(index, 10) * 0.05 }}
+                      key={job?._id}
+                    >
+                      <Job job={job} />
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex flex-col items-center gap-4 mt-8">
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="flex items-center gap-1"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        Previous
+                      </Button>
+                      
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          let pageNum;
+                          if (totalPages <= 5) {
+                            pageNum = i + 1;
+                          } else if (currentPage <= 3) {
+                            pageNum = i + 1;
+                          } else if (currentPage >= totalPages - 2) {
+                            pageNum = totalPages - 4 + i;
+                          } else {
+                            pageNum = currentPage - 2 + i;
+                          }
+                          
+                          return (
+                            <Button
+                              key={pageNum}
+                              variant={currentPage === pageNum ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`w-10 ${currentPage === pageNum ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
+                            >
+                              {pageNum}
+                            </Button>
+                          );
+                        })}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="flex items-center gap-1"
+                      >
+                        Next
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Showing {(currentPage - 1) * JOBS_PER_PAGE + 1} - {Math.min(currentPage * JOBS_PER_PAGE, filterJobs.length)} of {filterJobs.length} jobs
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

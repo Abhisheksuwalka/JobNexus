@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,56 +7,56 @@ const LatestJobs = () => {
   const { allJobs } = useSelector((store) => store.job);
 
   return (
-    <section className="py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 lg:py-16 bg-white dark:bg-gray-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+        <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 mb-2">
-              <Briefcase className="w-5 h-5" />
-              <span className="text-sm font-medium uppercase tracking-wider">
-                Fresh Opportunities
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              Latest <span className="gradient-text">Job Openings</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+              Latest Job Openings
             </h2>
+            <p className="mt-2 text-gray-600 dark:text-gray-400">
+              Explore the newest opportunities from top companies
+            </p>
           </div>
           <Link
             to="/jobs"
-            className="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium group"
+            className="hidden sm:flex items-center gap-1 text-primary hover:underline font-medium"
           >
             View all jobs
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
         {/* Jobs Grid */}
         {allJobs.length <= 0 ? (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
-              <Briefcase className="w-10 h-10 text-purple-600 dark:text-purple-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <Briefcase className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               No jobs available yet
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Check back soon for new opportunities!
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
+              Check back soon for new opportunities
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allJobs?.slice(0, 6).map((job, index) => (
-              <motion.div
-                key={job._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {allJobs?.slice(0, 6).map((job) => (
+                <JobCard key={job._id} job={job} />
+              ))}
+            </div>
+            {/* Mobile View All Link */}
+            <div className="mt-6 text-center sm:hidden">
+              <Link
+                to="/jobs"
+                className="inline-flex items-center gap-1 text-primary font-medium"
               >
-                <JobCard job={job} />
-              </motion.div>
-            ))}
-          </div>
+                View all jobs
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </section>

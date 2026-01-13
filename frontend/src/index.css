@@ -6,80 +6,74 @@
   :root {
     /* Background & Foreground */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 222 20% 12%;
     
     /* Card */
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 222 20% 12%;
     
     /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 222 20% 12%;
     
-    /* Primary - Premium Purple */
-    --primary: 262 83% 58%;
+    /* Primary - Professional Purple (toned down) */
+    --primary: 262 60% 50%;
     --primary-foreground: 0 0% 100%;
     
     /* Secondary */
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 20% 12%;
     
     /* Muted */
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
     
-    /* Accent - Indigo */
-    --accent: 252 91% 67%;
-    --accent-foreground: 240 5.9% 10%;
+    /* Accent - Subtle Indigo */
+    --accent: 245 58% 51%;
+    --accent-foreground: 0 0% 100%;
     
     /* Destructive */
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     
     /* Border & Input */
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 262 83% 58%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 60% 50%;
     
     /* Chart Colors */
-    --chart-1: 262 83% 58%;
-    --chart-2: 252 91% 67%;
-    --chart-3: 224 76% 48%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --chart-1: 262 60% 50%;
+    --chart-2: 245 58% 51%;
+    --chart-3: 199 89% 48%;
+    --chart-4: 160 84% 39%;
+    --chart-5: 38 92% 50%;
     
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     
-    /* Custom Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(224, 76%, 48%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(252, 91%, 67%) 50%, hsl(224, 76%, 48%) 100%);
+    /* Professional Gradient - subtle */
+    --gradient-primary: linear-gradient(135deg, hsl(262, 60%, 50%) 0%, hsl(245, 58%, 51%) 100%);
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 222 20% 8%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 222 20% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 222 20% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 262 83% 58%;
+    --primary: 262 60% 58%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 222 20% 14%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 252 91% 67%;
+    --muted: 222 20% 14%;
+    --muted-foreground: 220 9% 60%;
+    --accent: 245 58% 58%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 262 83% 58%;
-    --chart-1: 262 83% 58%;
-    --chart-2: 252 91% 67%;
-    --chart-3: 224 76% 48%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 222 20% 18%;
+    --input: 222 20% 18%;
+    --ring: 262 60% 58%;
   }
 }
 
@@ -89,106 +83,98 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }
 
 @layer utilities {
-  /* Glassmorphism */
-  .glass {
-    @apply bg-white/80 backdrop-blur-xl border border-white/20;
-  }
-  
-  .glass-dark {
-    @apply bg-gray-900/80 backdrop-blur-xl border border-gray-700/50;
-  }
-  
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent;
-  }
-  
-  /* Gradient Background */
+  /* Clean gradient - professional, subtle */
   .gradient-bg {
-    @apply bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600;
+    background: linear-gradient(135deg, hsl(262, 60%, 50%) 0%, hsl(245, 58%, 51%) 100%);
   }
   
-  /* Gradient Border */
-  .gradient-border {
-    @apply relative before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:bg-gradient-to-r before:from-purple-600 before:via-violet-600 before:to-indigo-600;
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(262, 60%, 50%) 0%, hsl(245, 58%, 51%) 100%);
   }
   
-  /* Card Hover Effect */
+  /* Simple hover effect for cards */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1;
+    @apply transition-all duration-200;
   }
   
-  /* Button Glow */
-  .btn-glow {
-    @apply shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-shadow duration-300;
+  .card-hover:hover {
+    @apply -translate-y-0.5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
   
-  /* Animated Gradient Background */
-  .animated-gradient {
-    background: linear-gradient(-45deg, #8B5CF6, #A78BFA, #4F46E5, #6366F1);
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease infinite;
+  /* Professional button styles */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground;
+    @apply transition-all duration-200;
   }
   
-  /* Floating Animation */
-  .float {
-    animation: float 6s ease-in-out infinite;
+  .btn-primary:hover {
+    @apply opacity-90;
   }
   
-  /* Pulse Glow */
-  .pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+  /* Subtle border accent instead of thick gradients */
+  .border-accent-left {
+    border-left: 3px solid hsl(262, 60%, 50%);
   }
 }
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* Professional Card Shadows */
+.shadow-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.shadow-card-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
-  }
-}
-
-/* Scrollbar Styling */
+/* Custom scrollbar - subtle */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+  background: hsl(220, 14%, 96%);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-purple-400 dark:bg-purple-600 rounded-full;
+  background: hsl(220, 9%, 70%);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-purple-500 dark:bg-purple-500;
+  background: hsl(220, 9%, 60%);
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

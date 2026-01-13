@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Bookmark, Clock, DollarSign, MapPin, Users } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Avatar, AvatarImage } from "../../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 
@@ -25,8 +25,7 @@ const Job = ({ job }) => {
       className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden"
       whileHover={{ y: -4 }}
     >
-      {/* Gradient Accent */}
-      <div className="absolute top-0 left-0 w-1 h-full gradient-bg rounded-l-2xl"></div>
+
 
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
@@ -34,6 +33,9 @@ const Job = ({ job }) => {
           <div className="relative">
             <Avatar className="h-12 w-12 ring-2 ring-purple-100 dark:ring-purple-900/50">
               <AvatarImage src={job?.company?.logo} className="object-cover" />
+              <AvatarFallback className="bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 font-semibold text-sm">
+                {job?.company?.name?.slice(0, 2).toUpperCase() || "CO"}
+              </AvatarFallback>
             </Avatar>
             {daysAgo === 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></span>

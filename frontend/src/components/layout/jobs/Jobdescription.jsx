@@ -2,18 +2,18 @@ import { setSingleJob } from "@/redux/jobslice";
 import axios from "axios";
 import { motion } from "framer-motion";
 import {
-    ArrowLeft,
-    Award,
-    Briefcase,
-    Calendar,
-    CheckCircle2,
-    Clock,
-    DollarSign,
-    FileText,
-    MapPin,
-    Send,
-    Timer,
-    Users
+  ArrowLeft,
+  Award,
+  Briefcase,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  FileText,
+  MapPin,
+  Send,
+  Timer,
+  Users
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +21,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "../../../utils/constant";
 import Navbar from "../../common/Navbar";
-import { Avatar, AvatarImage } from "../../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Button } from "./../../ui/button";
 
 const JobDescription = () => {
-  const { singleJob } = useSelector((store) => store.job);
+  const { singleJob, allJobs } = useSelector((store) => store.job);
   const { user } = useSelector((store) => store.auth);
   const allAppliedJobs = useSelector((store) => store.job.allAppliedJobs);
   const [isApplied, setIsApplied] = useState(false);
@@ -67,6 +67,20 @@ const JobDescription = () => {
 
   useEffect(() => {
     const fetchSingleJob = async () => {
+      // Check if it's a mock job ID (starts with "job_")
+      if (jobId?.startsWith("job_")) {
+        const mockJob = allJobs.find(j => j._id === jobId);
+        if (mockJob) {
+          dispatch(setSingleJob(mockJob));
+          const hasApplied = mockJob.applications?.some(
+            (application) => application.applicant === user?._id
+          );
+          setIsApplied(hasApplied);
+          return;
+        }
+      }
+      
+      // Otherwise fetch from API
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
           withCredentials: true,
@@ -80,11 +94,18 @@ const JobDescription = () => {
         }
       } catch (error) {
         console.log(error);
+        // Fallback: try to find in allJobs
+        const fallbackJob = allJobs.find(j => j._id === jobId);
+        if (fallbackJob) {
+          dispatch(setSingleJob(fallbackJob));
+        }
       }
     };
 
-    fetchSingleJob();
-  }, [jobId, dispatch, user?._id]);
+    if (jobId) {
+      fetchSingleJob();
+    }
+  }, [jobId, dispatch, user?._id, allJobs]);
 
   useEffect(() => {
     const hasApplied = singleJob?.applications?.some(
@@ -145,6 +166,9 @@ const JobDescription = () => {
                       src={singleJob?.company?.logo}
                       className="object-cover"
                     />
+                    <AvatarFallback className="bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 font-semibold">
+                      {singleJob?.company?.name?.slice(0, 2).toUpperCase() || "CO"}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -284,6 +308,9 @@ const JobDescription = () => {
                     src={singleJob?.company?.logo}
                     className="object-cover"
                   />
+                  <AvatarFallback className="bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 font-semibold text-sm">
+                    {singleJob?.company?.name?.slice(0, 2).toUpperCase() || "CO"}
+                  </AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">
