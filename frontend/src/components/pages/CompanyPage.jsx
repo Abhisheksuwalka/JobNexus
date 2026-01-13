@@ -1,14 +1,14 @@
 
-import Navbar from '../common/navbar'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import CompaniesTable from '../layout/company/CompanyJobsTable'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetAllCompanies from '../../hooks/useGetAllCompanies'
-import { useState , useEffect } from 'react'
+import Navbar from '../common/Navbar'
+import CompaniesTable from '../layout/Company/CompanyJobsTable'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 
+import { setSearchCompanyByText } from '@/redux/companyslice'
 import { useDispatch } from 'react-redux'
-import { setSearchCompanyByText } from '@/redux/companySlice'
 
 function Companies() {  
     const [input, setInput] = useState("");

@@ -1,10 +1,10 @@
+import useGetAllJobs from '@/hooks/useGetAllJobs';
+import { setSearchedQuery } from '@/redux/jobslice';
+import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Job from '../layout/jobs/Jobcard';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSearchedQuery } from '@/redux/jobSlice';
-import useGetAllJobs from '@/hooks/useGetAllJobs';
-import { Search } from 'lucide-react';
 import { Button } from '../ui/button';
 
 const Browse = () => {

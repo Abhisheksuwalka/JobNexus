@@ -1,9 +1,9 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../ui/carousel';
-import { Button } from '../../ui/button';
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setSearchedCompany } from '@/redux/companySlice';
+import { setSearchedCompany } from '@/redux/companyslice';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { Button } from '../../ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../ui/carousel';
 
 const category = [
     "Google",

@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
+import { setSingleCompany } from "@/redux/companyslice";
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { COMPANY_API_END_POINT } from "../../../utils/constant";
+import Navbar from "../../common/Navbar";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
-import Navbar from "../../common/navbar";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { COMPANY_API_END_POINT } from "../../../utils/constant";
-import { toast } from "sonner";
-import { useState } from "react";
-import { setSingleCompany } from "@/redux/companyslice";
-import { useDispatch } from "react-redux";
 
 function CompanyCreate() {
   const navigate = useNavigate();
